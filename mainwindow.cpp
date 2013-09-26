@@ -91,7 +91,12 @@ void MainWindow::makeMenu()
 void MainWindow::ajouterTache()
 {
 
-
+    if (tacheEdit->text().isEmpty())
+    {
+        QMessageBox affbox;
+        affbox.setText(tr("Il faut au moins mettre une désignation de la tâche."));
+        affbox.show();
+    }
 
 }
 
