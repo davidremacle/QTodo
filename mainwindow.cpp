@@ -30,13 +30,9 @@ MainWindow::MainWindow(QWidget *parent)
     boutonLayout->addStretch();
     boutonLayout->addWidget(supprimerBouton);
 
-
     QGroupBox *mygroup = new QGroupBox(this);
     QHBoxLayout *groupoxlayout = new QHBoxLayout;
     mygroup->setTitle(tr("Tâche a ajouter :"));
-
-
-
 
     QFormLayout *formlayout = new QFormLayout;
 
@@ -59,6 +55,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ajouterBouton, SIGNAL(clicked()), this, SLOT(ajouterTache()));
     connect(supprimerBouton, SIGNAL(clicked()), this, SLOT(supprimerTache()));
 }
+
+/*
+ * Fonction MakeMenu()
+ * type : private fonction
+ *
+ */
 
 void MainWindow::makeMenu()
 {
@@ -88,6 +90,11 @@ void MainWindow::makeMenu()
     connect(aboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
+/* Ajouter Tâche
+ * Fonction : ajouter les tache dans le vue
+ * Type : private Slot
+ */
+
 void MainWindow::ajouterTache()
 {
 
@@ -95,10 +102,17 @@ void MainWindow::ajouterTache()
     {
         QMessageBox affbox;
         affbox.setText(tr("Il faut au moins mettre une désignation de la tâche."));
-        affbox.show();
+        affbox.setIcon(QMessageBox::Information);
+        affbox.exec();
     }
 
 }
+
+/*
+ * Fonction : Supprimer les tâches de la vue
+ * Type : Private Slot
+ *
+ */
 
 void MainWindow::supprimerTache()
 {
@@ -124,11 +138,22 @@ void MainWindow::supprimerTache()
     }
 }
 
+
+/*
+ * Fonction : OuvrirFichier()
+ * Type : private Slot
+ *
+ */
 void MainWindow::OuvrirFichier()
 {
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Text (*txt)");
     QMessageBox::information(this, "Fichier", "Vous avez sélectionné :\n" + fichier);
 }
+
+/* Fonction : SauverFichier()
+ * Type : private slot
+ *
+ */
 
 void MainWindow::SauverFichier()
 {
