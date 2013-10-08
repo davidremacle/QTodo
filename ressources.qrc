@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/delete-icon.png</file>
+        <file>img/Actions-document-close-icon.png</file>
+        <file>img/Actions-document-new-icon.png</file>
+        <file>img/Actions-document-open-icon.png</file>
+        <file>img/Actions-document-save-icon.png</file>
+    </qresource>
+</RCC>

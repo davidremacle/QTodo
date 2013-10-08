@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "proposappdialog.h"
+
 #include <QMainWindow>
 #include <QPushButton>
 #include <QFileDialog>
@@ -21,6 +23,9 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QStringList>
+#include <QIcon>
+
+#include <QTabBar>
 
 class MainWindow : public QMainWindow
 {
@@ -35,12 +40,14 @@ private slots:
     void supprimerTache();
     void OuvrirFichier();
     void SauverFichier();
+    void aproposApp();
 
 private:
     QVBoxLayout *layoutPrincipal;
     QHBoxLayout *boutonLayout;
     QPushButton *ajouterBouton;
     QPushButton *supprimerBouton;
+    QPushButton *quitterBouton;
     QCheckBox *importantCheckBox;
 
 
@@ -52,6 +59,8 @@ private:
     QStringList tableHeader;
 
     QAction *actionSauver;
+
+
 
     void makeMenu();
 };

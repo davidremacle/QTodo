@@ -5,12 +5,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     QWidget *zoneCentrale = new QWidget;
 
+
     layoutPrincipal = new QVBoxLayout;
     ajouterBouton = new QPushButton(this);
     ajouterBouton->setText(tr("Ajouter"));
     ajouterBouton->setDefault(true);
+    ajouterBouton->setIcon(QIcon(":/img/Actions-document-new-icon.png"));
     supprimerBouton = new QPushButton(this);
     supprimerBouton->setText(tr("Supprimer"));
+    supprimerBouton->setIcon(QIcon(":/img/Actions-document-close-icon.png"));
+    quitterBouton = new QPushButton(this);
+    quitterBouton->setText(tr("Quitter"));
+    quitterBouton->setIcon(QIcon(":/img/delete-icon.png"));
+
+
     importantCheckBox = new QCheckBox("&Important", this);
 
     tableHeader << tr("Important") << tr("Tâche");
@@ -19,20 +27,21 @@ MainWindow::MainWindow(QWidget *parent)
     todoTable->setColumnCount(2);
     todoTable->setHorizontalHeaderLabels(tableHeader);
     todoTable->setShowGrid(true);
-    todoTable->setItem(0,1,new QTableWidgetItem("hello"));
-    todoTable->setStyleSheet("QTableView {selection-background-color: red;}");
+    /*todoTable->setItem(1,1,new QTableWidgetItem("hello"));
+    todoTable->setStyleSheet("QTableView {selection-background-color: red;}");*/
 
     tacheEdit = new QLineEdit;
 
     boutonLayout = new QHBoxLayout;
-
-    boutonLayout->addWidget(ajouterBouton);
+    boutonLayout->addWidget(quitterBouton);
     boutonLayout->addStretch();
     boutonLayout->addWidget(supprimerBouton);
+    boutonLayout->addWidget(ajouterBouton);
 
     QGroupBox *mygroup = new QGroupBox(this);
     QHBoxLayout *groupoxlayout = new QHBoxLayout;
     mygroup->setTitle(tr("Tâche a ajouter :"));
+
 
     QFormLayout *formlayout = new QFormLayout;
 
@@ -54,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ajouterBouton, SIGNAL(clicked()), this, SLOT(ajouterTache()));
     connect(supprimerBouton, SIGNAL(clicked()), this, SLOT(supprimerTache()));
+    connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
 
 /*
@@ -67,6 +77,7 @@ void MainWindow::makeMenu()
     QMenu *menuFichier = menuBar()->addMenu(tr("&Fichier"));
     QAction *actionOuvrirFichier = new QAction(tr("&Ouvrir"), this);
     actionOuvrirFichier->setShortcut(QKeySequence("Ctrl+O"));
+    actionOuvrirFichier->setIcon(QIcon(":/img/Actions-document-open-icon.png"));
     connect(actionOuvrirFichier, SIGNAL(triggered()), this, SLOT(OuvrirFichier()));
     menuFichier->addAction(actionOuvrirFichier);
 
@@ -79,13 +90,18 @@ void MainWindow::makeMenu()
 
     QAction *actionQuitter = new QAction(tr("&Quitter"), this);
     actionQuitter->setShortcut(QKeySequence("Ctrl+Q"));
+    actionQuitter->setIcon(QIcon(":/img/delete-icon.png"));
     menuFichier->addAction(actionQuitter);
 
     QMenu *menuOutils = menuBar()->addMenu(tr("&Outis"));
+    QAction *ActionaboutApp = new QAction(tr("A propos de Todo"), this);
+    menuOutils->addAction(ActionaboutApp);
     QAction *aboutQt = new QAction(tr("A propos de Qt"), this);
     menuOutils->addAction(aboutQt);
 
 
+
+    connect(ActionaboutApp, SIGNAL(triggered()), this, SLOT(aproposApp()));
     connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
@@ -104,6 +120,12 @@ void MainWindow::ajouterTache()
         affbox.setText(tr("Il faut au moins mettre une désignation de la tâche."));
         affbox.setIcon(QMessageBox::Information);
         affbox.exec();
+    }
+    else
+    {
+        QTableWidgetItem *newItem = new QTableWidgetItem(tr("hellworld"));
+        todoTable->setItem(0,1,newItem);
+
     }
 
 }
@@ -126,7 +148,8 @@ void MainWindow::supprimerTache()
 
     switch(ret){
     case QMessageBox::Yes:
-        //Supprimertache
+        // button yes
+
         break;
     case QMessageBox::No:
         //exit Dialog
@@ -159,6 +182,16 @@ void MainWindow::SauverFichier()
 {
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Text (*.txt)");
     QMessageBox::information(this, "Fichier", "Vous avez sélectionné :\n" + fichier);
+}
+
+/* fonction : aproposApp
+ * type : private slot
+ */
+
+void MainWindow::aproposApp()
+{
+    proposAppDialog *aboutbox = new proposAppDialog;
+    aboutbox->exec();
 }
 
 MainWindow::~MainWindow()
