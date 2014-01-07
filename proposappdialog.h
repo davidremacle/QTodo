@@ -2,6 +2,7 @@
 #define PROPOSAPPDIALOG_H
 
 #include <QDialog>
+#include <QtWidgets>
 
 class proposAppDialog : public QDialog
 {
@@ -12,6 +13,12 @@ public:
 signals:
 
 public slots:
+
+private:
+    QLabel *labelInfo;
+    QPushButton *okButton;
+    QLabel *iconLabel;
+    QHBoxLayout *layoutPrincipal;
 
 };
 
