@@ -18,7 +18,7 @@ private:
     QLabel *labelInfo;
     QPushButton *okButton;
     QLabel *iconLabel;
-    QHBoxLayout *layoutPrincipal;
+    QVBoxLayout *layoutPrincipal;
 
 };
 
